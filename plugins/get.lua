@@ -34,7 +34,8 @@ return {
     "get [Value]: If You Save A Value Can Get It.",
     },
   patterns = {
-    "^([Gg]et) (.+)$"
+    "^([Gg]et) (.+)$",
+     "^([!/#$][gG]et) (.+)$",
   },
   run = run
 }
