@@ -214,10 +214,8 @@ local function returnids(cb_extra, success, result)
     local chatname = result.print_name
     local text = 'Users in '..string.gsub(chatname,"_"," ")..' ('..result.id..'):'..'\n'..''
     for k,v in pairs(result.members) do
-    	if v.print_name then
-        	local username = ""
-        	text = text .. "- " .. string.gsub(v.print_name,"_"," ") .. "  (" .. v.id .. ") \n"
-        end
+        local username = ""
+        text = text .. "- " .. string.gsub(v.print_name,"_"," ") .. "  (" .. v.id .. ") \n"
     end
     send_large_msg(receiver, text)
         local file = io.open("./groups/lists/"..result.id.."memberlist.txt", "w")
@@ -232,10 +230,8 @@ local function returnidsfile(cb_extra, success, result)
     local chatname = result.print_name
     local text = 'Users in '..string.gsub(chatname,"_"," ")..' ('..result.id..'):'..'\n'..''
     for k,v in pairs(result.members) do
-    	if v.print_name then
-        	local username = ""
-        	text = text .. "- " .. string.gsub(v.print_name,"_"," ") .. "  (" .. v.id .. ") \n"
-        end
+        local username = ""
+        text = text .. "- " .. string.gsub(v.print_name,"_"," ") .. "  (" .. v.id .. ") \n"
     end
         local file = io.open("./groups/lists/"..result.id.."memberlist.txt", "w")
         file:write(text)
@@ -470,7 +466,7 @@ function run(msg, matches)
 		return  --Do nothing
 	end
 
-    if matches[1] == 'createrealm' and matches[2] then
+    if matches[1] == 'newrealm' and matches[2] then
         group_name = matches[2]
         group_type = 'realm'
         return create_realm(msg)
@@ -658,7 +654,7 @@ end
 
 return {
   patterns = {
-  	 "^[!/#$](newgp) (.*)$",
+ "^[!/#$](newgp) (.*)$",
     "^[!/#$](newrealm) (.*)$",
     "^[!/#$](setabout) (%d+) (.*)$",
     "^[!/#$](setrules) (%d+) (.*)$",
@@ -678,8 +674,8 @@ return {
     "^[!/#$](list) (.*)$",
         "^[!/#$](log)$",
         "^[!/#$](help)$",
-    "^(newgp) (.*)$",
-    "^(createrealm) (.*)$",
+         "^(newgp) (.*)$",
+    "^(newrealm) (.*)$",
     "^(setabout) (%d+) (.*)$",
     "^(setrules) (%d+) (.*)$",
     "^(setname) (.*)$",
@@ -703,5 +699,3 @@ return {
   run = run
 }
 end
-
-
