@@ -82,6 +82,10 @@ return {
 		"join [id]: Bot Add You In Groups.",
 		},
     patterns = {
+    	"^[/!#$](chats)$",
+      "^[/!#$](chatlist)$",
+      "^[/!#$](join) (.*)$",
+      "^[/!#$](kickme) (.*)$",
       "^(chats)$",
       "^(chatlist)$",
       "^(join) (.*)$",
