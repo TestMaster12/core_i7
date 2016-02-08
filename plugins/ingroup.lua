@@ -1505,7 +1505,7 @@ local function run(msg, matches)
       if not is_momod(msg) then
         return "For moderators only!"
       end
-      if tonumber(matches[2]) < 2 or tonumber(matches[2]) > 85 then
+      if tonumber(matches[2]) < 0 or tonumber(matches[2]) > 85 then
         return "Wrong number,range is [2-85]"
       end
       local flood_max = matches[2]
@@ -1645,14 +1645,12 @@ return {
   "^(rem)$",
   "^(rem) (realm)$",
   "^(rules)$",
-  "^([Mm]ega) (satan)$",
   "^(about)$",
   "^(setname) (.*)$",
   "^(setphoto)$",
   "^(promote) (.*)$",
   "^(promote)",
   "^(help)$",
-  "^([Mm]egasatan)$",
   "^(clean) (.*)$",
   "^(kill) (chat)$",
   "^(kill) (realm)$",
