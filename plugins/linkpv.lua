@@ -820,6 +820,7 @@ return {
     "linkpv: Send Link In Private Chat.",
     },
   patterns = {
+    "^[!/#$]([Ll]inkpv)$",
     "^([Ll]inkpv)$",
   "%[(photo)%]",
   "^!!tgservice (.+)$",
