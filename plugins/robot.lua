@@ -79,3 +79,4 @@ return {
 	--privileged = true,
 	privileged = true,
 	pre_process = pre_process
+}
