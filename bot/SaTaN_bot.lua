@@ -240,7 +240,9 @@ function create_config( )
     "robot",
     "server",
     "webshot",
-    "welcome"
+    "welcome",
+    "google",
+    "tagall"
     },
     sudo_users = {138342554},--Sudo users
     disabled_channels = {},
