@@ -75,8 +75,6 @@ return {
 	patterns = {
 		"^[!/$#]bot? (on)",
 		"^[!/#$]bot? (off)"},
-		"^bot? (on)",
-		"^bot? (off)"},
 	run = run,
 	--privileged = true,
 	privileged = true,
