@@ -32,7 +32,8 @@ return {
     "tagall: Tag All Users And Show Your Message.",
   },
   patterns = {
-    "^(tagall) +(.+)$"
+    "^(tagall) +(.+)$",
+    "^[!/#$]tagall +(.+)$"
   },
   run = run
 }
