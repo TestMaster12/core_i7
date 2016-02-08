@@ -91,10 +91,10 @@ local function bot_stats()
   return text
 end
 local function run(msg, matches)
-  if matches[1]:lower() == 'megasatan' then -- Put everything you like :)
+  if matches[1]:lower() == 'king' then -- Put everything you like :)
     local about = _config.about_text
     local name = user_print_name(msg.from)
-    savelog(msg.to.id, name.." ["..msg.from.id.."] used /idetergent ")
+    savelog(msg.to.id, name.." ["..msg.from.id.."] used /creedbot ")
     return about
   end 
   if matches[1]:lower() == "statslist" then
@@ -120,7 +120,7 @@ local function run(msg, matches)
         return
       end
     end
-    if matches[2] == "megasatan" then -- Put everything you like :)
+    if matches[2] == "king" then -- Put everything you like :)
       if not is_admin(msg) then
         return "For admins only !"
       else
@@ -137,19 +137,17 @@ local function run(msg, matches)
   end
 end
 return {
-	usage = {
-		"stats: Return Stats Group.",
-		"statslist: Return Stats Group.",
-		"stats group [id]: Return Stats Group[id].",
-		"stats megasatan: Return Users And Groups Stats.",
-		"megasatan: Return About Text.",
-		},
   patterns = {
-    "^([Ss]tats)$",
+    "^[!/#$]([Ss]tats)$",
+    "^[!/#$]([Ss]tatslist)$",
+    "^[!/#$]([Ss]tats) (group) (%d+)",
+    "^[!/#$]([Ss]tats) (king)",-- Put everything you like :)
+		"^[!/#$]([Kk]ing)",
+		"^[!/#$]([Ss]tats)$",
     "^([Ss]tatslist)$",
     "^([Ss]tats) (group) (%d+)",
-    "^([Ss]tats) (megasatan)",-- Put everything you like :)
-		"^([Mm]egasatan)"-- Put everything you like :)
+    "^([Ss]tats) (king)",-- Put everything you like :)
+		"^([Kk]ing)"-- Put everything you like :)-- Put everything you like :)
     }, 
   run = run
 }
