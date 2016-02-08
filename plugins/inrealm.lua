@@ -398,7 +398,7 @@ local function username_id(cb_extra, success, result)
         member_id = v.id
         if mod_cmd == 'addadmin' then
             return admin_user_promote(receiver, member_username, member_id)
-        elseif mod_cmd == 'removeadmin' then
+        elseif mod_cmd == 'remadmin' then
             return admin_user_demote(receiver, member_username, member_id)
         end
       end
@@ -460,7 +460,7 @@ function run(msg, matches)
 		chat_info(receiver, returnids, {receiver=receiver})
 	end
 
-    if matches[1] == 'creategroup' and matches[2] then
+    if matches[1] == 'newgp' and matches[2] then
         group_name = matches[2]
         group_type = 'group'
         return create_group(msg)
@@ -603,7 +603,7 @@ function run(msg, matches)
 				chat_info(receiver, username_id, {mod_cmd= mod_cmd, receiver=receiver, member=member})
 			end
 		end
-		if matches[1] == 'removeadmin' then
+		if matches[1] == 'remadmin' then
 			if string.match(matches[2], '^%d+$') then
 				local admin_id = matches[2]
 				print("user "..admin_id.." has been demoted")
@@ -658,7 +658,27 @@ end
 
 return {
   patterns = {
-    "^(creategroup) (.*)$",
+  	 "^[!/#$](newgp) (.*)$",
+    "^[!/#$](newrealm) (.*)$",
+    "^[!/#$](setabout) (%d+) (.*)$",
+    "^[!/#$](setrules) (%d+) (.*)$",
+    "^[!/#$](setname) (.*)$",
+    "^[!/#$](setgpname) (%d+) (.*)$",
+    "^[!/#$](setname) (%d+) (.*)$",
+        "^[!/#$](lock) (%d+) (.*)$",
+    "^[!/#$](unlock) (%d+) (.*)$",
+    "^[!/#$](setting) (%d+)$",
+        "^[!/#$](wholist)$",
+        "^[!/#$](who)$",
+        "^[!/#$](type)$",
+    "^[!/#$](kill) (chat) (%d+)$",
+    "^[!/#$](kill) (realm) (%d+)$",
+    "^[!/#$](addadmin) (.*)$", -- sudoers only
+    "^[!/#$](remadmin) (.*)$", -- sudoers only
+    "^[!/#$](list) (.*)$",
+        "^[!/#$](log)$",
+        "^[!/#$](help)$",
+    "^(newgp) (.*)$",
     "^(createrealm) (.*)$",
     "^(setabout) (%d+) (.*)$",
     "^(setrules) (%d+) (.*)$",
@@ -674,7 +694,7 @@ return {
     "^(kill) (chat) (%d+)$",
     "^(kill) (realm) (%d+)$",
     "^(addadmin) (.*)$", -- sudoers only
-    "^(removeadmin) (.*)$", -- sudoers only
+    "^(remadmin) (.*)$", -- sudoers only
     "^(list) (.*)$",
         "^(log)$",
         "^(help)$",
