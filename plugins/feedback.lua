@@ -1,27 +1,43 @@
 do
 
- function run(msg, matches)
- local ch = 'chat#id'..msg.to.id
- local fuse = 'New FeedBack\n\nId : ' .. msg.from.id .. '\n\nName: ' .. msg.from.print_name ..'\n\nUsername: @' .. msg.from.username ..'\n\nMessage From: '..msg.to.id.. '\n\nThe Pm:\n' .. matches[1]
- local fuses = '!printf user#id' .. msg.from.id
+function run(msg, matches)
+
+local fuse = '😜 we have recived a new feedback just now : #newfeedback \n\nID▶️ : ' .. msg.from.id .. '\n\nName▶ : ' .. msg.from.print_name ..'\n\nusername▶️ :@ ' .. msg.from.username  ..'\n\n🅿️♏️ :\n\n\n' .. matches[1] 
+local fuses = '!printf user#id' .. msg.from.id
 
 
-   local text = matches[1]
-   local chat = "chat#id"..53167206
+    local text = matches[1]
+ bannedidone = string.find(msg.from.id, '123')
+        bannedidtwo =string.find(msg.from.id, '465')       
+   bannedidthree =string.find(msg.from.id, '678')  
 
-  local sends = send_msg(chat, fuse, ok_cb, false)
-  return 'Sent!'
 
- end
- end
- return {
+        print(msg.to.id)
 
+        if bannedidone or bannedidtwo or bannedidthree then                    --for banned people
+                return 'You are banned to send a feedback'
+ else
+
+
+                 local sends0 = send_msg('chat#119136921', fuse, ok_cb, false)
+
+ return 'your feedback succesfully recived to @SUDO_USER😜!'
+
+     
+
+end
+
+end
+return {
   description = "Feedback",
 
-  usage = "feedback: Send A Message To Admins.",
+  usage = "!feedback : send maseage to admins with bot",
   patterns = {
-  "^[Ff]eedback (.*)$"
+    "^![Ff]eedback (.*)$"
+    "^![!/#$][Ff]eedback (.*)$"
 
   },
   run = run
- }
+}
+
+end
