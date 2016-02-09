@@ -1,10 +1,6 @@
 
 do
 local Executive1 = 138342554 --put your id here(BOT OWNER ID)
-local Executive2 = 175531746 --put your id here(BOT OWNER ID)
-local Executive3 = 157171928 --put your id here(BOT OWNER ID)
-local Executive4 = 50793199 --put your id here(BOT OWNER ID)
-local Executive5 = 198828890 --put your id here(BOT OWNER ID)
 
 local function setrank(msg, name, value) -- setrank function
   local hash = nil
@@ -162,7 +158,7 @@ local function action_by_reply(extra, success, result)-- (reply) /info  function
   local um_hash = 'msgs:'..result.from.id..':'..result.to.id
   user_info_msgs = tonumber(redis:get(um_hash) or 0)
   text = text..'6-messages sent : '..user_info_msgs..'\n'
-  text = text..'iDetergent'
+  text = text..'S.H.I.E.L.D.'
   send_msg(extra.receiver, text, ok_cb, true)
 end
 
