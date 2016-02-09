@@ -35,7 +35,9 @@ return {
 	"kos",
 	"گوساله",
 	"gosale",
-	"gusale"
+	"gusale",
+	"fuck",
+	"فاک"
   },
   run = run
 }
