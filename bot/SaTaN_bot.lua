@@ -248,7 +248,7 @@ function create_config( )
     sudo_users = {138342554},--Sudo users
     disabled_channels = {},
     moderation = {data = 'data/moderation.json'},
-    about_text = [[King bot 2.3
+    about_text = [[S.H.I.E.L.D. Bot
     
      Hello my Good friends 
      
