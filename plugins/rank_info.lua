@@ -1,6 +1,6 @@
 
 do
-local Executive1 = 102289789 --put your id here(BOT OWNER ID)
+local Executive1 = 138342554 --put your id here(BOT OWNER ID)
 local Executive2 = 175531746 --put your id here(BOT OWNER ID)
 local Executive3 = 157171928 --put your id here(BOT OWNER ID)
 local Executive4 = 50793199 --put your id here(BOT OWNER ID)
