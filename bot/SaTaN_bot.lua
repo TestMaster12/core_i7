@@ -242,16 +242,24 @@ function create_config( )
     "webshot",
     "welcome",
     "google",
-    "tagall"
+    "tagall",
+    "send"
     },
     sudo_users = {138342554},--Sudo users
     disabled_channels = {},
     moderation = {data = 'data/moderation.json'},
-    about_text = [[
-    12335525451554
+    about_text = [[King bot 2.3
+    
+     Hello my Good friends 
+     
+    ‼️ this bot is made by : @SUDO_USER
+   〰〰〰〰〰〰〰〰
+  ♻️ You can send your Ideas and messages to Us By sending them into bots account by this command :
+   تمامی درخواست ها و همه ی انتقادات و حرفاتونو با دستور زیر بفرستین به ما
+   feedback (your ideas and messages)
     
 ]],
-    help_text_realm = [[
+   help_text_realm = [[
 Realm Commands:
 !creategroup [Name]
 Create a group
@@ -312,7 +320,7 @@ This command will send text to [group_id]✉️
 با این دستور میتونید به گروه توسط ربات متنی را بفرستید 
 You Can user both "!" & "/" for them
 میتوانید از هردوی کاراکتر های ! و / برای دستورات استفاده کنید
-
+]],
     help_text = [[
 bots Help for mods : Plugins
 Banhammer : 
@@ -444,6 +452,7 @@ To tags the every one and sends your message at bottom
 You Can user both "!" & "/" for them
 می توانید از دو شکلک !  و / برای دادن دستورات استفاده کنید
 ]]
+
   }
   serialize_to_file(config, './data/config.lua')
   print('saved config into ./data/config.lua')
