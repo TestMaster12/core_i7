@@ -230,6 +230,11 @@ local function show_group_settingsmod(msg, data, target)
     if data[tostring(msg.to.id)]['settings']['lock_chat'] then
         lock_chat = data[tostring(msg.to.id)]['settings']['lock_chat']
         end
+        
+         local lock_user = "no"
+    if data[tostring(msg.to.id)]['settings']['lock_user'] then
+        lock_user = data[tostring(msg.to.id)]['settings']['lock_user']
+        end
 
   local lock_leave = "no"
     if data[tostring(msg.to.id)]['settings']['lock_leave'] then
@@ -240,7 +245,7 @@ local lock_sticker = "ok"
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-  local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+  local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
   return text
 end
 
@@ -535,6 +540,61 @@ local function unlock_group_chat(msg, data, target)
     data[tostring(target)]['settings']['lock_chat'] = 'no'
     save_data(_config.moderation.data, data)
     return 'chat has been unlocked!'
+  end
+end
+
+local function lock_group_user(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_user_lock = data[tostring(target)]['settings']['lock_user']
+  if group_user_lock == 'yes' then
+    return 'username is already locked!'
+  else
+    data[tostring(target)]['settings']['lock_user'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'username has been locked!'
+  end
+end
+
+local function unlock_group_user(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_user_lock = data[tostring(target)]['settings']['lock_user']
+  if group_user_lock == 'no' then
+    return 'usernamr is already unlocked!'
+  else
+    data[tostring(target)]['settings']['lock_user'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'username has been unlocked!'
+  end
+end
+local function lock_group_user(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_user_lock = data[tostring(target)]['settings']['lock_user']
+  if group_user_lock == 'yes' then
+    return 'username is already locked!'
+  else
+    data[tostring(target)]['settings']['lock_user'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'username has been locked!'
+  end
+end
+
+local function unlock_group_user(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_user_lock = data[tostring(target)]['settings']['lock_user']
+  if group_user_lock == 'no' then
+    return 'user is already unlocked!'
+  else
+    data[tostring(target)]['settings']['lock_user'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'username has been unlocked!'
   end
 end
 
@@ -1334,6 +1394,7 @@ local function run(msg, matches)
       		lock_group_floodmod(msg, data, target),
       		lock_group_tag(msg, data, target),
       		lock_group_chat(msg, data, target),
+      		lock_group_user(msg, data, target),
       		lock_group_badw(msg, data, target),
       		lock_group_join(msg, data, target),
       		lock_group_bots(msg, data, target),
@@ -1377,6 +1438,10 @@ local function run(msg, matches)
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked chat ")
         return lock_group_chat(msg, data, target)
       end
+       if matches[2] == 'user' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked user ")
+        return lock_group_user(msg, data, target)
+      end
          if matches[2] == 'badw' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked badw ")
         return lock_group_badw(msg, data, target)
@@ -1407,6 +1472,7 @@ local function run(msg, matches)
       		unlock_group_floodmod(msg, data, target),
       		unlock_group_tag(msg, data, target),
       		unlock_group_chat(msg, data, target),
+      		unlock_group_user(msg, data, target),
       		unlock_group_badw(msg, data, target),
       		unlock_group_join(msg, data, target),
       		unlock_group_bots(msg, data, target),
@@ -1453,6 +1519,10 @@ local function run(msg, matches)
       if matches[2] == 'chat' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked chat ")
         return unlock_group_chat(msg, data, target)
+      end
+       if matches[2] == 'user' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked user ")
+        return unlock_group_user(msg, data, target)
       end
          if matches[2] == 'badw' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked badw ")
