@@ -227,8 +227,8 @@ local function show_group_settingsmod(msg, data, target)
         end
         
         local lock_chat = "no"
-    if data[tostring(msg.to.id)]['settings']['lock_user'] then
-        lock_tag = data[tostring(msg.to.id)]['settings']['lock_user']
+    if data[tostring(msg.to.id)]['settings']['lock_chat'] then
+        lock_chat = data[tostring(msg.to.id)]['settings']['lock_chat']
         end
 
   local lock_leave = "no"
