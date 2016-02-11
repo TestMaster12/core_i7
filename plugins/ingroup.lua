@@ -210,6 +210,11 @@ local function show_group_settingsmod(msg, data, target)
     if data[tostring(msg.to.id)]['settings']['lock_join'] then
         lock_join = data[tostring(msg.to.id)]['settings']['lock_join']
         end
+        
+         local lock_chat= "no"
+    if data[tostring(msg.to.id)]['settings']['lock_chat'] then
+        lock_join = data[tostring(msg.to.id)]['settings']['lock_chat']
+        end
 
           local lock_eng = "no"
     if data[tostring(msg.to.id)]['settings']['lock_eng'] then
@@ -475,6 +480,63 @@ local function unlock_group_tag(msg, data, target)
     data[tostring(target)]['settings']['lock_tag'] = 'no'
     save_data(_config.moderation.data, data)
     return '# has been unlocked!'
+  end
+end
+
+
+
+local function lock_group_chat(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'yes' then
+    return 'chat is already locked!'
+  else
+    data[tostring(target)]['settings']['lock_chat'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'chat has been locked!'
+  end
+end
+
+local function unlock_group_chat(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'no' then
+    return 'chat is already unlocked!'
+  else
+    data[tostring(target)]['settings']['lock_chat'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'chat has been unlocked!'
+  end
+end
+local function lock_group_chat(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'yes' then
+    return 'chat is already locked!'
+  else
+    data[tostring(target)]['settings']['lock_chat'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'chat has been locked!'
+  end
+end
+
+local function unlock_group_chat(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_tag_lock == 'no' then
+    return 'chat is already unlocked!'
+  else
+    data[tostring(target)]['settings']['lock_chat'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'chat has been unlocked!'
   end
 end
 
@@ -1273,6 +1335,7 @@ local function run(msg, matches)
       		lock_group_membermod(msg, data, target),
       		lock_group_floodmod(msg, data, target),
       		lock_group_tag(msg, data, target),
+      		lock_group_chat(msg, data, target),
       		lock_group_badw(msg, data, target),
       		lock_group_join(msg, data, target),
       		lock_group_bots(msg, data, target),
@@ -1312,6 +1375,10 @@ local function run(msg, matches)
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked tag ")
         return lock_group_tag(msg, data, target)
       end
+      if matches[2] == 'chat' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked chat ")
+        return lock_group_chat(msg, data, target)
+      end
          if matches[2] == 'badw' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked badw ")
         return lock_group_badw(msg, data, target)
@@ -1341,6 +1408,7 @@ local function run(msg, matches)
       		unlock_group_membermod(msg, data, target),
       		unlock_group_floodmod(msg, data, target),
       		unlock_group_tag(msg, data, target),
+      		unlock_group_chat(msg, data, target),
       		unlock_group_badw(msg, data, target),
       		unlock_group_join(msg, data, target),
       		unlock_group_bots(msg, data, target),
@@ -1383,6 +1451,10 @@ local function run(msg, matches)
           if matches[2] == 'tag' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked tag ")
         return unlock_group_tag(msg, data, target)
+      end
+      if matches[2] == 'chat' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked chat ")
+        return unlock_group_chat(msg, data, target)
       end
          if matches[2] == 'badw' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked badw ")
