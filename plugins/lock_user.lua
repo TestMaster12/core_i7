@@ -7,8 +7,8 @@ local function run(msg, matches)
     return
   end
   local data = load_data(_config.moderation.data)
-  if data[tostring(msg.to.id)]['settings']['username'] then
-    if data[tostring(msg.to.id)]['settings']['username'] == 'yes' then
+  if data[tostring(msg.to.id)]['settings']['user'] then
+    if data[tostring(msg.to.id)]['settings']['user'] == 'yes' then
       if antiusername[msg.from.id] == true then 
         return
       end
