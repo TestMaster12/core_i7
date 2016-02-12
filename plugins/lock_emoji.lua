@@ -1,38 +1,31 @@
-
-antiemoji = {}-- An empty table for solving multiple kicking problem
-
-do
 local function run(msg, matches)
 if msg.to.type == 'chat' then
-  if is_momod(msg) then -- Ignore mods,owner,admins
-    return
-  end
-  local data = load_data(_config.moderation.data)
-  if data[tostring(msg.to.id)]['settings']['lock_emoji'] then
-    if data[tostring(msg.to.id)]['settings']['lock_emoji'] == 'yes' then
-      if antiemoji[msg.from.id] == true then 
+    if is_owner(msg) then
         return
-      end
-      send_large_msg("chat#id".. msg.to.id , "Emoji is not allowed here")
-      local name = user_print_name(msg.from)
-      savelog(msg.to.id, name.." ["..msg.from.id.."] kicked (emoji was locked) ")
-      chat_del_user('chat#id'..msg.to.id,'user#id'..msg.from.id,ok_cb,false)
-		  antiemoji[msg.from.id] = true
-      return
     end
-  end
-  return
+    local data = load_data(_config.moderation.data)
+    if data[tostring(msg.to.id)] then
+        if data[tostring(msg.to.id)]['settings'] then
+            if data[tostring(msg.to.id)]['settings']['lock_emoji'] then
+                lock_tag = data[tostring(msg.to.id)]['settings']['lock_emoji']
+            end
+        end
+    end
+    local chat = get_receiver(msg)
+    local user = "user#id"..msg.from.id
+    if lock_emoji == "yes" then
+        send_large_msg(chat, 'emoji 😁 is not allowed here!!')
+        chat_del_user(chat, user, ok_cb, true)
+    end
 end
-end
-local function cron()
-  antiemoji = {} -- Clear antienglish table 
-end
+ end
 return {
+	usage = {
+		"lock emoji: If User Send A Message With 😁 , 😁 Then Bot Removed User.",
+		"unlock emoji: No Action Execute If User Send Mesage With 😁 , 😁",
+		},
   patterns = {
-"([😀😬😁😂😃😄😅😆😇😉😊🙂🙃☺️😚😙😗😘😍😌😋😜😝😛🤑🤓😎🤗🤔🙄😒😑😐😶😏😳😞😟😠😡😔😕😤😩😫😖😣☹️🙁😮😱😨😰😯😦😧😲😵😭😓😪😥😢🤐😷🤒🤕😴💤💩👽👻💀👺👹👿😈])"
-    },
-  run = run,
-	cron = cron
+    "([😀😬😁😂😃😄😅😆😇😉😊🙂🙃☺️😚😙😗😘😍😌😋😜😝😛🤑🤓😎🤗🤔🙄😒😑😐😶😏😳😞😟😠😡😔😕😤😩😫😖😣☹️🙁😮😱😨😰😯😦😧😲😵😭😓😪😥😢🤐😷🤒🤕😴💤💩👽👻💀👺👹👿😈])"
+  },
+  run = run
 }
-
-end
