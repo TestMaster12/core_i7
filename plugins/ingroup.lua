@@ -714,7 +714,6 @@ local function unlock_group_join(msg, data, target)
   end
 end
 
-
 local function lock_group_leave(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
