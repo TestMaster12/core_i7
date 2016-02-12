@@ -8,14 +8,14 @@ if msg.to.type == 'chat' then
     return
   end
   local data = load_data(_config.moderation.data)
-  if data[tostring(msg.to.id)]['settings']['lock_eng'] then
-    if data[tostring(msg.to.id)]['settings']['lock_eng'] == 'yes' then
+  if data[tostring(msg.to.id)]['settings']['mute_eng'] then
+    if data[tostring(msg.to.id)]['settings']['mute_eng'] == 'yes' then
       if antienglish[msg.from.id] == true then 
         return
       end
       send_large_msg("chat#id".. msg.to.id , "English is not allowed here")
       local name = user_print_name(msg.from)
-      savelog(msg.to.id, name.." ["..msg.from.id.."] kicked (english was locked) ")
+      savelog(msg.to.id, name.." ["..msg.from.id.."] kicked (english was muted) ")
       chat_del_user('chat#id'..msg.to.id,'user#id'..msg.from.id,ok_cb,false)
 		  antienglish[msg.from.id] = true
       return
