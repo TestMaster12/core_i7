@@ -242,7 +242,7 @@ local function show_group_settingsmod(msg, data, target)
         end
         
         local lock_emoji = "no"
-    if data[tostring(msg.to.id)]['settings']['lock_user'] then
+    if data[tostring(msg.to.id)]['settings']['lock_emoji'] then
         lock_emoji = data[tostring(msg.to.id)]['settings']['lock_emoji']
         end
 
