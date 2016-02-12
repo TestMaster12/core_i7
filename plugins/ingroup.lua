@@ -332,13 +332,13 @@ local function unmute_group_farsi(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
-  if group_farsi_mute == 'no' then
+  local group_farsi_unmute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_unmute == 'no' then
     return 'farsi is already unlocked'
   else
     data[tostring(target)]['settings']['mute_farsi'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'Arabic has been unlocked'
+    return 'farsi has been unlocked'
   end
 end
 
