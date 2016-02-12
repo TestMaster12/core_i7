@@ -250,7 +250,7 @@ local lock_sticker = "ok"
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
 return text end
 
 
@@ -271,33 +271,6 @@ local function get_description(msg, data)
   local about = data[tostring(msg.to.id)][data_cat]
   local about = string.gsub(msg.to.print_name, "_", " ")..':\n\n'..about
   return 'About '..about
-end
-local function lock_group_arabic(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
-  if group_arabic_lock == 'yes' then
-    return 'Arabic is already locked'
-  else
-    data[tostring(target)]['settings']['lock_arabic'] = 'yes'
-    save_data(_config.moderation.data, data)
-    return 'Arabic has been locked'
-  end
-end
-
-local function unlock_group_arabic(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
-  if group_arabic_lock == 'no' then
-    return 'Arabic is already unlocked'
-  else
-    data[tostring(target)]['settings']['lock_arabic'] = 'no'
-    save_data(_config.moderation.data, data)
-    return 'Arabic has been unlocked'
-  end
 end
 
 local function lock_group_link(msg, data, target)
@@ -1478,10 +1451,6 @@ local function run(msg, matches)
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked flood ")
         return lock_group_floodmod(msg, data, target)
       end
-      if matches[2] == 'arabic' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked arabic ")
-        return lock_group_arabic(msg, data, target)
-      end
           if matches[2] == 'adds' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked link ")
         return lock_group_link(msg, data, target)
@@ -1555,10 +1524,6 @@ local function run(msg, matches)
       if matches[2] == 'flood' or matches[2] == 'f' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked flood ")
         return unlock_group_floodmod(msg, data, target)
-      end
-      if matches[2] == 'arabic' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked arabic ")
-        return unlock_group_arabic(msg, data, target)
       end
           if matches[2] == 'adds' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked link ")
