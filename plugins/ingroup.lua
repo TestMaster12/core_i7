@@ -801,7 +801,7 @@ local function unmute_group_farsi(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_farsi_mute = data[tostring(target)]['settings']['lock_eng']
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
   if group_farsi_mute == 'no' then
     return 'farsi is already unlocked!'
   else
