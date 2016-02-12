@@ -1588,9 +1588,8 @@ local function run(msg, matches)
     if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute eng ")
         return unmute_group_eng(msg, data, target)
+       end
       end
-      end
-    end
   --[[if matches[1] == 'public' then
     local target = msg.to.id
     if matches[2] == 'yes' then
