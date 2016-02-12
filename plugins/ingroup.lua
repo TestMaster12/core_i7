@@ -1558,6 +1558,38 @@ local function run(msg, matches)
         return nil
       end
     end
+    if matches[1] == 'mute' or matches[1] == 'm' then
+      local target = msg.to.id
+      if matches[2] == 'all' then
+      	if not is_momod(msg) then
+      		return ""
+      	end
+      	local safemode ={
+      		lock_group_farsi(msg, data, target),
+      	}
+      	return safemode
+      	end
+      if matches[2] == 'farsi' or matches[2] == 'f' then
+          savelog(msg.to.id, name_log.." ["..msg.from.id.."] mute farsi ")
+          return mute_group_farsi(msg, data, target)
+          end
+      	end
+      	if matches[1] == 'unmute' or matches[1] == 'u'  then
+      local target = msg.to.id
+      if matches[2] == 'all' then
+      	if not is_momod(msg) then
+      		return ""
+      	end
+      	local de_safemode ={
+      		unmute_group_farsi(msg, data, target),
+      		}
+      	return de_safemode
+      end
+      if matches[2] == 'farsi' or matches[2] == 'f' then
+          savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute farsi ")
+          return unmute_group_farsi(msg, data, target)
+        end
+       end 
   --[[if matches[1] == 'public' then
     local target = msg.to.id
     if matches[2] == 'yes' then
