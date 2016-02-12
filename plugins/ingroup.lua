@@ -211,9 +211,9 @@ local function show_group_settingsmod(msg, data, target)
         lock_join = data[tostring(msg.to.id)]['settings']['lock_join']
         end
 
-          local lock_eng = "no"
-    if data[tostring(msg.to.id)]['settings']['lock_eng'] then
-        lock_eng = data[tostring(msg.to.id)]['settings']['lock_eng']
+          local mute_eng = "no"
+    if data[tostring(msg.to.id)]['settings']['mute_eng'] then
+        mute_eng = data[tostring(msg.to.id)]['settings']['mute_eng']
         end
 
           local lock_badw = "no"
@@ -245,7 +245,7 @@ local lock_sticker = "ok"
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..lock_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
 return text end
 
 
@@ -377,58 +377,58 @@ local function unlock_group_link(msg, data, target)
   end
 end
 
-local function lock_group_eng(msg, data, target)
+local function mute_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_lock == 'yes' then
-    return 'english is already locked!'
+  local group_eng_mute = data[tostring(target)]['settings']['mute_eng']
+  if group_eng_mute == 'yes' then
+    return 'english is already muted!'
   else
-    data[tostring(target)]['settings']['lock_eng'] = 'yes'
+    data[tostring(target)]['settings']['mute_eng'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'english has been locked!'
+    return 'english has been muted!'
   end
 end
 
-local function unlock_group_eng(msg, data, target)
+local function unmute_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_lock == 'no' then
-    return 'english is already unlocked!'
+  local group_eng_mute = data[tostring(target)]['settings']['mute_eng']
+  if group_eng_mute == 'no' then
+    return 'english is already unmuted!'
   else
-    data[tostring(target)]['settings']['lock_eng'] = 'no'
+    data[tostring(target)]['settings']['mute_eng'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'english has been unlocked!'
+    return 'english has been unmuted!'
   end
 end
-local function lock_group_eng(msg, data, target)
+local function mute_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_lock == 'yes' then
-    return 'english is already locked!'
+  local group_eng_mute = data[tostring(target)]['settings']['mute_eng']
+  if group_eng_mute == 'yes' then
+    return 'english is already muted!'
   else
-    data[tostring(target)]['settings']['lock_eng'] = 'yes'
+    data[tostring(target)]['settings']['mute_eng'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'english has been locked!'
+    return 'english has been muted!'
   end
 end
 
-local function unlock_group_eng(msg, data, target)
+local function unmute_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_lock == 'no' then
-    return 'english is already unlocked!'
+  local group_eng_mute = data[tostring(target)]['settings']['mute_eng']
+  if group_eng_mute == 'no' then
+    return 'english is already unmuted!'
   else
-    data[tostring(target)]['settings']['lock_eng'] = 'no'
+    data[tostring(target)]['settings']['mute_eng'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'english has been unlocked!'
+    return 'english has been unmuted!'
   end
 end
 
@@ -1557,6 +1557,40 @@ local function run(msg, matches)
         return nil
       end
     end
+   
+    if matches[1] == 'mute' then
+      local target = msg.to.id
+      if matches[2] == 'all' then
+      	if not is_momod(msg) then
+      		return ""
+      	end
+    local safemode ={
+      		mute_group_eng(msg, data, target),
+      	}
+      	return safemode
+      end
+   if matches[2] == 'eng' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] muted eng ")
+        return mute_group_eng(msg, data, target)
+      end
+    end
+    if matches[1] == 'unmute'  then
+      local target = msg.to.id
+      if matches[2] == 'all' then
+      	if not is_momod(msg) then
+      		return ""
+      	end
+      	local de_safemode ={
+      		unmute_group_eng(msg, data, target),
+      	}
+      	return de_safemode
+      end
+    if matches[2] == 'eng' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute eng ")
+        return unmute_group_eng(msg, data, target)
+      end
+      end
+    end
   --[[if matches[1] == 'public' then
     local target = msg.to.id
     if matches[2] == 'yes' then
@@ -1797,12 +1831,14 @@ return {
   "^(demote)",
   "^(set) ([^%s]+) (.*)$",
   "^(lock) (.*)$",
+  "^(mute) (.*)$",
   "^(setowner) (%d+)$",
   "^(setowner)",
   "^(owner)$",
   "^(res) (.*)$",
   "^(setgpowner) (%d+) (%d+)$",-- (group id) (owner id)
   "^(unlock) (.*)$",
+  "^(unmute) (.*)$",
   "^(setflood) (%d+)$",
   "^(settings)$",
 -- "^[!/](public) (.*)$",
@@ -1827,12 +1863,14 @@ return {
   "^[!/#$](demote)",
   "^[!/#$](set) ([^%s]+) (.*)$",
   "^[!/#$](lock) (.*)$",
+  "^[!/#$](mute) (.*)$",
   "^[!/#$](setowner) (%d+)$",
   "^[!/#$](setowner)",
   "^[!/#$](owner)$",
   "^[!/#$](res) (.*)$",
   "^[!/#$](setgpowner) (%d+) (%d+)$",-- (group id) (owner id)
   "^[!/#$](unlock) (.*)$",
+  "^[!/#$](unmute) (.*)$",
   "^[!/#$](setflood) (%d+)$",
   "^[!/#$](settings)$",
 -- "^[!/#$](public) (.*)$",
