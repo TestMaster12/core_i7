@@ -215,6 +215,11 @@ local function show_group_settingsmod(msg, data, target)
     if data[tostring(msg.to.id)]['settings']['mute_eng'] then
         mute_eng = data[tostring(msg.to.id)]['settings']['mute_eng']
         end
+        
+        local mute_farsi = "no"
+    if data[tostring(msg.to.id)]['settings']['mute_farsi'] then
+        mute_farsi = data[tostring(msg.to.id)]['settings']['mute_farsi']
+        end
 
           local lock_badw = "no"
     if data[tostring(msg.to.id)]['settings']['lock_badw'] then
@@ -245,7 +250,7 @@ local lock_sticker = "ok"
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
 return text end
 
 
@@ -429,6 +434,62 @@ local function unmute_group_eng(msg, data, target)
     data[tostring(target)]['settings']['mute_eng'] = 'no'
     save_data(_config.moderation.data, data)
     return 'english has been unmuted!'
+  end
+end
+
+
+local function mute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'yes' then
+    return 'farsi is already muted!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been muted!'
+  end
+end
+
+local function unmute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'no' then
+    return 'farsi is already unmuted!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been unmuted!'
+  end
+end
+local function mute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'yes' then
+    return 'farsi is already muted!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been muted!'
+  end
+end
+
+local function unmute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'no' then
+    return 'farsi is already unmuted!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been unmuted!'
   end
 end
 
@@ -1558,12 +1619,17 @@ local function run(msg, matches)
       	end
     local safemode ={
       		mute_group_eng(msg, data, target),
+      		mute_group_farsi(msg, data, target),
       	}
       	return safemode
       end
    if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] muted eng ")
         return mute_group_eng(msg, data, target)
+      end
+      if matches[2] == 'farsi' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] muted farsi ")
+        return mute_group_farsi(msg, data, target)
       end
     end
     if matches[1] == 'unmute'  then
@@ -1574,12 +1640,17 @@ local function run(msg, matches)
       	end
       	local de_safemode ={
       		unmute_group_eng(msg, data, target),
+      		unmute_group_farsi(msg, data, target),
       	}
       	return de_safemode
       end
     if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute eng ")
         return unmute_group_eng(msg, data, target)
+       end
+       if matches[2] == 'farsi' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute farsi ")
+        return unmute_group_farsi(msg, data, target)
        end
       end
   --[[if matches[1] == 'public' then
