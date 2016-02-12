@@ -244,8 +244,12 @@ local lock_sticker = "ok"
     if data[tostring(msg.to.id)]['settings']['sticker'] then
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
+        local mute_farsi = "no"
+    if data[tostring(msg.to.id)]['settings']['mute_farsi'] then
+        mute_farsi = data[tostring(msg.to.id)]['settings']['mute_farsi']
+        end
          local settings = data[tostring(target)]['settings']
-  local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+  local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group links : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
   return text
 end
 
@@ -291,6 +295,48 @@ local function unlock_group_arabic(msg, data, target)
     return 'Arabic is already unlocked'
   else
     data[tostring(target)]['settings']['lock_arabic'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'Arabic has been unlocked'
+  end
+end
+local function unlock_group_arabic(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_arabic_lock = data[tostring(target)]['settings']['lock_arabic']
+  if group_arabic_lock == 'no' then
+    return 'Arabic is already unlocked'
+  else
+    data[tostring(target)]['settings']['lock_arabic'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'Arabic has been unlocked'
+  end
+end
+
+
+local function mute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'yes' then
+    return 'farsi is already locked'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been locked'
+  end
+end
+
+local function unmute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'no' then
+    return 'farsi is already unlocked'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'no'
     save_data(_config.moderation.data, data)
     return 'Arabic has been unlocked'
   end
@@ -707,6 +753,61 @@ local function unlock_group_leave(msg, data, target)
     data[tostring(msg.to.id)]['settings']['leave_ban'] = 'no'
     save_data(_config.moderation.data, data)
     return 'Leaving users will not be banned'
+  end
+end
+
+local function mute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'yes' then
+    return 'farsi is already locked!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been locked!'
+  end
+end
+
+local function unmute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'no' then
+    return 'farsi is already unlocked!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been unlocked!'
+  end
+end
+local function mute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['mute_farsi']
+  if group_farsi_mute == 'yes' then
+    return 'farsi is already locked!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been locked!'
+  end
+end
+
+local function unmute_group_farsi(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local group_farsi_mute = data[tostring(target)]['settings']['lock_eng']
+  if group_farsi_mute == 'no' then
+    return 'farsi is already unlocked!'
+  else
+    data[tostring(target)]['settings']['mute_farsi'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'farsi has been unlocked!'
   end
 end
 
@@ -1830,6 +1931,7 @@ return {
   "^(demote)",
   "^(set) ([^%s]+) (.*)$",
   "^(lock) (.*)$",
+  "^(mute) (.*)$",
   "^(setowner) (%d+)$",
   "^(setowner)",
   "^(owner)$",
@@ -1860,6 +1962,7 @@ return {
   "^[!/#$](demote)",
   "^[!/#$](set) ([^%s]+) (.*)$",
   "^[!/#$](lock) (.*)$",
+  "^[!/#$](mute) (.*)$",
   "^[!/#$](setowner) (%d+)$",
   "^[!/#$](setowner)",
   "^[!/#$](owner)$",
