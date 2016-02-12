@@ -231,9 +231,9 @@ local function show_group_settingsmod(msg, data, target)
         lock_tag = data[tostring(msg.to.id)]['settings']['lock_tag']
         end
         
-        local lock_chat = "no"
-    if data[tostring(msg.to.id)]['settings']['lock_chat'] then
-        lock_chat = data[tostring(msg.to.id)]['settings']['lock_chat']
+        local mute_chat = "no"
+    if data[tostring(msg.to.id)]['settings']['mute_chat'] then
+        mute_chat = data[tostring(msg.to.id)]['settings']['mute_chat']
         end
         
          local lock_user = "no"
@@ -250,7 +250,7 @@ local lock_sticker = "ok"
         lock_sticker = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group chat : "..lock_chat.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Mute group chat 🗣 : "..mute_chat.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group user : "..lock_user.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
 return text end
 
 
@@ -521,58 +521,58 @@ local function unlock_group_tag(msg, data, target)
   end
 end
 
-local function lock_group_chat(msg, data, target)
+local function mute_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
-  if group_chat_lock == 'yes' then
-    return 'chat is already locked!'
+  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
+  if group_chat_mute == 'yes' then
+    return 'chat is already Muted!'
   else
-    data[tostring(target)]['settings']['lock_chat'] = 'yes'
+    data[tostring(target)]['settings']['mute_chat'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'chat has been locked!'
+    return 'chat has been Muted!'
   end
 end
 
-local function unlock_group_chat(msg, data, target)
+local function unmute_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
-  if group_chat_lock == 'no' then
-    return 'chat is already unlocked!'
+  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
+  if group_chat_mute == 'no' then
+    return 'chat is already unmuted!'
   else
-    data[tostring(target)]['settings']['lock_chat'] = 'no'
+    data[tostring(target)]['settings']['mute_chat'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'chat has been unlocked!'
+    return 'chat has been unmuted!'
   end
 end
-local function lock_group_chat(msg, data, target)
+local function mute_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
-  if group_chat_lock == 'yes' then
-    return 'chat is already locked!'
+  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
+  if group_chat_mute == 'yes' then
+    return 'chat is already Muted!'
   else
-    data[tostring(target)]['settings']['lock_chat'] = 'yes'
+    data[tostring(target)]['settings']['mute_chat'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'chat has been locked!'
+    return 'chat has been Muted!'
   end
 end
 
-local function unlock_group_chat(msg, data, target)
+local function unmute_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
-  if group_chat_lock == 'no' then
-    return 'chat is already unlocked!'
+  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
+  if group_chat_mute == 'no' then
+    return 'chat is already unmuted!'
   else
-    data[tostring(target)]['settings']['lock_chat'] = 'no'
+    data[tostring(target)]['settings']['mute_chat'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'chat has been unlocked!'
+    return 'chat has been unmuted!'
   end
 end
 
@@ -1425,7 +1425,6 @@ local function run(msg, matches)
       		lock_group_membermod(msg, data, target),
       		lock_group_floodmod(msg, data, target),
       		lock_group_tag(msg, data, target),
-      		lock_group_chat(msg, data, target),
       		lock_group_user(msg, data, target),
       		lock_group_badw(msg, data, target),
       		lock_group_join(msg, data, target),
@@ -1457,10 +1456,6 @@ local function run(msg, matches)
           if matches[2] == 'tag' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked tag ")
         return lock_group_tag(msg, data, target)
-      end
-      if matches[2] == 'chat' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked chat ")
-        return lock_group_chat(msg, data, target)
       end
        if matches[2] == 'user' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked user ")
@@ -1495,7 +1490,6 @@ local function run(msg, matches)
       		unlock_group_membermod(msg, data, target),
       		unlock_group_floodmod(msg, data, target),
       		unlock_group_tag(msg, data, target),
-      		unlock_group_chat(msg, data, target),
       		unlock_group_user(msg, data, target),
       		unlock_group_badw(msg, data, target),
       		unlock_group_join(msg, data, target),
@@ -1531,10 +1525,6 @@ local function run(msg, matches)
           if matches[2] == 'tag' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked tag ")
         return unlock_group_tag(msg, data, target)
-      end
-      if matches[2] == 'chat' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked chat ")
-        return unlock_group_chat(msg, data, target)
       end
        if matches[2] == 'user' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked user ")
@@ -1584,6 +1574,7 @@ local function run(msg, matches)
     local safemode ={
       		mute_group_eng(msg, data, target),
       		mute_group_farsi(msg, data, target),
+      		mute_group_chat(msg, data, target),
       	}
       	return safemode
       end
@@ -1595,6 +1586,10 @@ local function run(msg, matches)
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] muted farsi ")
         return mute_group_farsi(msg, data, target)
       end
+      if matches[2] == 'chat' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] Muted chat ")
+        return mute_group_chat(msg, data, target)
+      end
     end
     if matches[1] == 'unmute'  then
       local target = msg.to.id
@@ -1605,6 +1600,7 @@ local function run(msg, matches)
       	local de_safemode ={
       		unmute_group_eng(msg, data, target),
       		unmute_group_farsi(msg, data, target),
+      		unmute_group_chat(msg, data, target),
       	}
       	return de_safemode
       end
@@ -1615,6 +1611,10 @@ local function run(msg, matches)
        if matches[2] == 'farsi' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute farsi ")
         return unmute_group_farsi(msg, data, target)
+       end
+       if matches[2] == 'chat' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] Unmute chat ")
+        return unmute_group_chat(msg, data, target)
        end
       end
   --[[if matches[1] == 'public' then
