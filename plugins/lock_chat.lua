@@ -7,8 +7,8 @@ local function run(msg, matches)
     return
   end
   local data = load_data(_config.moderation.data)
-  if data[tostring(msg.to.id)]['settings']['lock_chat'] then
-    if data[tostring(msg.to.id)]['settings']['lock_chat'] == 'yes' then
+  if data[tostring(msg.to.id)]['settings']['mute_chat'] then
+    if data[tostring(msg.to.id)]['settings']['mute_chat'] == 'yes' then
       if antichat[msg.from.id] == true then 
         return
       end
