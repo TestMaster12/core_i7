@@ -130,7 +130,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from) .. ' (user#id' .. msg.from.id .. ')'
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "chat ID:/n"..msg.to.id ..   "your ID:/n"..msg.from.id 
+      return "chat ID:n/"..msg.to.id ..   "your ID:n/"..msg.from.id 
     end
   end
   local receiver = get_receiver(msg)
