@@ -121,7 +121,7 @@ end
 local function run(msg, matches)
  if matches[1]:lower() == 'id' or matches[1]:lower() == 'res' then
     if msg.to.type == "user" then
-      return "Bot ID: "..msg.to.id.. "Your ID: "..msg.from.id
+     return "Bot ID: "..msg.to.id.. "\n\nYour ID: "..msg.from.id
     end
     if type(msg.reply_id) ~= "nil" then
       local name = user_print_name(msg.from)
@@ -130,7 +130,7 @@ local function run(msg, matches)
     elseif matches[1]:lower() == 'id' then
       local name = user_print_name(msg.from) .. ' (user#id' .. msg.from.id .. ')'
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "Your ID: "..msg.from.id ..   "Group ID: "..msg.to.id
+      return "Your ID: "..msg.from.id .. "\n\nGroup ID: "..msg.to.id
     end
   end
   local receiver = get_receiver(msg)
