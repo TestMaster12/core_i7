@@ -131,6 +131,7 @@ local function run(msg, matches)
       local name = user_print_name(msg.from)
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
       return "Group ID for " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id
+      user_print_name(msg.from) .. ' (' .. msg.from.id .. ')'
     end
   end
   local receiver = get_receiver(msg)
