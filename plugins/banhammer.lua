@@ -128,9 +128,9 @@ local function run(msg, matches)
         savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
       id = get_message(msg.reply_id,get_message_callback_id, false)
     elseif matches[1]:lower() == 'id' then
-      local name = user_print_name(msg.from)
+      local name = user_print_name(msg.from) .. ' (user#id' .. msg.from.id .. ')'
       savelog(msg.to.id, name.." ["..msg.from.id.."] used /id ")
-      return "Group ID for " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id
+      return "chat ID " ..string.gsub(msg.to.print_name, "_", " ").. ":\n\n"..msg.to.id 
     end
   end
   local receiver = get_receiver(msg)
