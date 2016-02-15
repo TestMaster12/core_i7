@@ -40,11 +40,11 @@ end
 local function run(msg, matches)
   local url = nil
   
-  if matches[1] == "ممه" then
+  if matches[1] == "ممه" and is_admin(msg) then
     url = getRandomBoobs()
   end
 
-  if matches[1] == "کون" then
+  if matches[1] == "کون" and is_admin(msg) then
     url = getRandomButts()
   end
 
