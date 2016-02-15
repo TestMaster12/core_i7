@@ -245,7 +245,7 @@ function create_config( )
     "welcome",
     "google",
     "tagall",
-    "send"
+    "send",
     "autoleave"
     },
     sudo_users = {138342554},--Sudo users
