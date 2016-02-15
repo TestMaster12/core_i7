@@ -233,9 +233,11 @@ function create_config( )
     "linkpv",
     "lock_badword",
     "mute_eng",
+    "mute_farsi",
     "lock_join",
     "lock_link",
     "lock_tag",
+    "lock_emoji",
     "rank_info",
     "robot",
     "server",
@@ -244,6 +246,7 @@ function create_config( )
     "google",
     "tagall",
     "send"
+    "autoleave"
     },
     sudo_users = {138342554},--Sudo users
     disabled_channels = {},
