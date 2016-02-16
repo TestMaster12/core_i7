@@ -1520,7 +1520,7 @@ local function run(msg, matches)
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked tag ")
         return lock_group_tag(msg, data, target)
       end
-       if matches[2] == 'emoji' then
+       if matches[2] == 'emoji' or matches[2] == '😁' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked emoji 😬 ")
         return lock_group_emoji(msg, data, target)
       end
@@ -1594,7 +1594,7 @@ local function run(msg, matches)
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked tag ")
         return unlock_group_tag(msg, data, target)
       end
-       if matches[2] == 'emoji' then
+       if matches[2] == 'emoji' or matches[2] == '😁' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked emoji ")
         return unlock_group_emoji(msg, data, target)
       end
