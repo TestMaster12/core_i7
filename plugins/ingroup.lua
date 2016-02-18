@@ -236,10 +236,6 @@ local function show_group_settingsmod(msg, data, target)
         lock_chat = data[tostring(msg.to.id)]['settings']['lock_chat']
         end
         
-         local lock_gif = "no"
-    if data[tostring(msg.to.id)]['settings']['lock_gif'] then
-        lock_gif = data[tostring(msg.to.id)]['settings']['lock_gif']
-        end
         
         local lock_emoji = "no"
     if data[tostring(msg.to.id)]['settings']['lock_emoji'] then
@@ -603,7 +599,7 @@ local function lock_group_chat(msg, data, target)
   end
   local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
   if group_chat_lock == 'yes' then
-    return 'chat is already locked!'
+    return 'Gif is already locked!'
   else
     data[tostring(target)]['settings']['lock_chat'] = 'yes'
     save_data(_config.moderation.data, data)
@@ -616,67 +612,12 @@ local function unlock_group_chat(msg, data, target)
     return "For moderators only!"
   end
   local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
-  if group_chat_mute == 'no' then
-    return 'chat is already unlock!'
+  if group_chat_lock == 'no' then
+    return 'chat is already unlocked!'
   else
     data[tostring(target)]['settings']['lock_chat'] = 'no'
     save_data(_config.moderation.data, data)
     return 'chat has been unlocked!'
-  end
-end
-
-local function lock_group_gif(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_gif_lock = data[tostring(target)]['settings']['lock_gif']
-  if group_gif_lock == 'yes' then
-    return 'Gif is already locked!'
-  else
-    data[tostring(target)]['settings']['lock_gif'] = 'yes'
-    save_data(_config.moderation.data, data)
-    return 'Gif has been locked!'
-  end
-end
-
-local function unlock_group_gif(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_gif_lock = data[tostring(target)]['settings']['lock_gif']
-  if group_gif_lock == 'no' then
-    return 'Gif is already unlocked!'
-  else
-    data[tostring(target)]['settings']['lock_gif'] = 'no'
-    save_data(_config.moderation.data, data)
-    return 'Gif has been unlocked!'
-  end
-end
-local function lock_group_gif(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_gif_lock = data[tostring(target)]['settings']['lock_gif']
-  if group_gif_lock == 'yes' then
-    return 'Gif is already locked!'
-  else
-    data[tostring(target)]['settings']['lock_gif'] = 'yes'
-    save_data(_config.moderation.data, data)
-    return 'Gif has been locked!'
-  end
-end
-
-local function unlock_group_gif(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_gif_lock = data[tostring(target)]['settings']['lock_gif']
-  if group_gif_lock == 'no' then
-    return 'Gif is already unlocked!'
-  else
-    data[tostring(target)]['settings']['lock_gif'] = 'no'
-    save_data(_config.moderation.data, data)
-    return 'Gif has been unlocked!'
   end
 end
 
