@@ -5,8 +5,8 @@ local function run(msg, matches)
     local data = load_data(_config.moderation.data)
     if data[tostring(msg.to.id)] then
         if data[tostring(msg.to.id)]['settings'] then
-            if data[tostring(msg.to.id)]['settings']['lock_gif'] then
-                lock_gif = data[tostring(msg.to.id)]['settings']['lock_gif']
+            if data[tostring(msg.to.id)]['settings']['lock_chat'] then
+                lock_gif = data[tostring(msg.to.id)]['settings']['lock_chat']
             end
         end
     end
