@@ -152,7 +152,7 @@ end
 
 local function run(msg, matches)
   -- Show the available plugins 
-  if matches[1] == '!plugins' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1] == '!plug' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     return list_all_plugins()
   end
 
@@ -189,7 +189,7 @@ local function run(msg, matches)
   end
 
   -- Reload all the plugins!
-  if matches[1] == '*' and is_sudo(msg) then --after changed to moderator mode, set only sudo
+  if matches[1] == '*' or matches[1] == 'r' and is_sudo(msg) then --after changed to moderator mode, set only sudo
     return reload_plugins(true)
   end
 end
@@ -198,22 +198,22 @@ return {
   description = "Plugin to manage other plugins. Enable, disable or reload.", 
   usage = {
       moderator = {
-          "!plugins disable [plugin] chat : disable plugin only this chat.",
-          "!plugins enable [plugin] chat : enable plugin only this chat.",
+          "!plug disable [plugin] chat : disable plugin only this chat.",
+          "!plug enable [plugin] chat : enable plugin only this chat.",
           },
       sudo = {
-          "!plugins : list all plugins.",
-          "!plugins enable [plugin] : enable plugin.",
-          "!plugins disable [plugin] : disable plugin.",
-          "!plugins reload : reloads all plugins." },
+          "!plug : list all plugins.",
+          "!plug enable [plugin] : enable plugin.",
+          "!plug disable [plugin] : disable plugin.",
+          "!plug reload : reloads all plugins." },
           },
   patterns = {
-    "^!plugins$",
-    "^!plugins? (+) ([%w_%.%-]+)$",
-    "^!plugins? (-) ([%w_%.%-]+)$",
-    "^!plugins? (+) ([%w_%.%-]+) (chat)",
-    "^!plugins? (-) ([%w_%.%-]+) (chat)",
-    "^!plugins? (*)$" },
+    "^!plug$",
+    "^!plug? (+) ([%w_%.%-]+)$",
+    "^!plug? (-) ([%w_%.%-]+)$",
+    "^!plug? (+) ([%w_%.%-]+) (chat)",
+    "^!plug? (-) ([%w_%.%-]+) (chat)",
+    "^!plug? (*)$" },
   run = run,
   moderated = true, -- set to moderator mode
   --privileged = true
