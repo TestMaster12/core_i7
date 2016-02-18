@@ -8,8 +8,8 @@ if msg.to.type == 'chat' then
     return
   end
   local data = load_data(_config.moderation.data)
-  if data[tostring(msg.to.id)]['settings']['mute_eng'] then
-    if data[tostring(msg.to.id)]['settings']['mute_eng'] == 'yes' then
+  if data[tostring(msg.to.id)]['settings']['lock_eng'] then
+    if data[tostring(msg.to.id)]['settings']['lock_eng'] == 'yes' then
       if antienglish[msg.from.id] == true then 
         return
       end
