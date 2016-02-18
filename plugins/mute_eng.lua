@@ -15,7 +15,7 @@ if msg.to.type == 'chat' then
       end
       send_large_msg("chat#id".. msg.to.id , "English is not allowed here")
       local name = user_print_name(msg.from)
-      savelog(msg.to.id, name.." ["..msg.from.id.."] kicked (english was muted) ")
+      savelog(msg.to.id, name.." ["..msg.from.id.."] kicked (english was locked) ")
       chat_del_user('chat#id'..msg.to.id,'user#id'..msg.from.id,ok_cb,false)
 		  antienglish[msg.from.id] = true
       return
@@ -29,11 +29,9 @@ local function cron()
 end
 return {
   patterns = {
-    "(a)",
-	"(o)",
-	"(l)",
-	"(A)",
-	"(O)",
+    "([Aa])",
+	"([Oo])",
+	"([Ll])",
 	"(L)",
 	"(M)",
 	"(e)",
