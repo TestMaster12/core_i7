@@ -257,7 +257,7 @@ local lock_sticker = "ok"
         end
         
          local settings = data[tostring(target)]['settings']
-local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Lock group farsi 🗣 : "..lock_farsi.."\n> Mute group chat 🗣 : "..mute_chat.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group emoji 😁 : "..lock_emoji.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group Gif : "..lock_gif.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Lock group farsi 🗣 : "..lock_farsi.."\n> Lock group chat 🗣 : "..lock_chat.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group emoji 😁 : "..lock_emoji.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
 return text end
 
 
@@ -570,58 +570,58 @@ local function unlock_group_emoji(msg, data, target)
   end
 end
 
-local function mute_group_chat(msg, data, target)
+local function lock_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
-  if group_chat_mute == 'yes' then
-    return 'chat is already Muted!'
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'yes' then
+    return 'chat is already locked!'
   else
-    data[tostring(target)]['settings']['mute_chat'] = 'yes'
+    data[tostring(target)]['settings']['lock_chat'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'chat has been Muted!'
+    return 'chat has been locked!'
   end
 end
 
-local function unmute_group_chat(msg, data, target)
+local function unlock_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
-  if group_chat_mute == 'no' then
-    return 'chat is already unmuted!'
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'no' then
+    return 'chat is already unlocked!'
   else
-    data[tostring(target)]['settings']['mute_chat'] = 'no'
+    data[tostring(target)]['settings']['lock_chat'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'chat has been unmuted!'
+    return 'chat has been unlocked!'
   end
 end
-local function mute_group_chat(msg, data, target)
+local function lock_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
-  if group_chat_mute == 'yes' then
-    return 'chat is already Muted!'
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'yes' then
+    return 'chat is already locked!'
   else
-    data[tostring(target)]['settings']['mute_chat'] = 'yes'
+    data[tostring(target)]['settings']['lock_chat'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'chat has been Muted!'
+    return 'chat has been locked!'
   end
 end
 
-local function unmute_group_chat(msg, data, target)
+local function unlock_group_chat(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_chat_mute = data[tostring(target)]['settings']['mute_chat']
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
   if group_chat_mute == 'no' then
-    return 'chat is already unmuted!'
+    return 'chat is already unlock!'
   else
-    data[tostring(target)]['settings']['mute_chat'] = 'no'
+    data[tostring(target)]['settings']['lock_chat'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'chat has been unmuted!'
+    return 'chat has been unlocked!'
   end
 end
 
@@ -1487,6 +1487,10 @@ local function run(msg, matches)
           savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked sticker ")
           return lock_group_sticker(msg, data, target)
       end
+      if matches[2] == 'chat' or matches[2] == 'c' then
+          savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked chat ")
+          return lock_group_chat(msg, data, target)
+      end
          if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked eng ")
         return lock_group_eng(msg, data, target)
@@ -1564,6 +1568,10 @@ local function run(msg, matches)
           if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked eng ")
         return unlock_group_eng(msg, data, target)
+      end
+      if matches[2] == 'chat' or matches[2] == 'c' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked chat ")
+        return unlock_group_chat(msg, data, target)
       end
        if matches[2] == 'farsi' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked farsi ")
@@ -1647,15 +1655,10 @@ local function run(msg, matches)
       		return ""
       	end
     local safemode ={
-      		mute_group_chat(msg, data, target),
       	}
       	return safemode
       end
 
-      if matches[2] == 'chat' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] Muted chat ")
-        return mute_group_chat(msg, data, target)
-      end
     end
     if matches[1] == 'unmute'  then
       local target = msg.to.id
@@ -1664,14 +1667,9 @@ local function run(msg, matches)
       		return ""
       	end
       	local de_safemode ={
-      		unmute_group_chat(msg, data, target),
       	}
       	return de_safemode
       end
-       if matches[2] == 'chat' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] Unmute chat ")
-        return unmute_group_chat(msg, data, target)
-       end
       end
   --[[if matches[1] == 'public' then
     local target = msg.to.id
@@ -1913,6 +1911,8 @@ return {
   "^(demote)",
   "^(set) ([^%s]+) (.*)$",
   "^(lock) (.*)$",
+  "^(l) (.*)$",
+  "^(u) (.*)$",
   "^(mute) (.*)$",
   "^(setowner) (%d+)$",
   "^(setowner)",
@@ -1952,6 +1952,8 @@ return {
   "^[!/#$](res) (.*)$",
   "^[!/#$](setgpowner) (%d+) (%d+)$",-- (group id) (owner id)
   "^[!/#$](unlock) (.*)$",
+  "^[!/#$](u) (.*)$",
+  "^[!/#$](l) (.*)$",
   "^[!/#$](unmute) (.*)$",
   "^[!/#$](setflood) (%d+)$",
   "^[!/#$](settings)$",
