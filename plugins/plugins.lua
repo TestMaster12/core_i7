@@ -214,7 +214,6 @@ return {
     "^plug? (+) ([%w_%.%-]+) (chat)",
     "^plug? (-) ([%w_%.%-]+) (chat)",
     "^plug? (*)$" },
-   "^plug? (r)$" },
   run = run,
   moderated = true, -- set to moderator mode
   --privileged = true
