@@ -211,7 +211,7 @@ local function show_group_settingsmod(msg, data, target)
         lock_join = data[tostring(msg.to.id)]['settings']['lock_join']
         end
 
-          local lock_eng = "no"
+        local lock_eng = "no"
     if data[tostring(msg.to.id)]['settings']['lock_eng'] then
         lock_eng = data[tostring(msg.to.id)]['settings']['lock_eng']
         end
@@ -348,26 +348,13 @@ local function lock_group_link(msg, data, target)
   end
 end
 
-local function unlock_group_link(msg, data, target)
-  if not is_momod(msg) then
-    return "For moderators only!"
-  end
-  local group_link_lock = data[tostring(target)]['settings']['lock_link']
-  if group_link_lock == 'no' then
-    return 'link is already unlocked!'
-  else
-    data[tostring(target)]['settings']['lock_link'] = 'no'
-    save_data(_config.moderation.data, data)
-    return 'link has been unlocked!'
-  end
-end
 
-local function mute_group_eng(msg, data, target)
+local function lock_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
   local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_mute == 'yes' then
+  if group_eng_lock == 'yes' then
     return 'english is already locked!'
   else
     data[tostring(target)]['settings']['lock_eng'] = 'yes'
@@ -380,8 +367,8 @@ local function unlock_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_lock= data[tostring(target)]['settings']['lock_eng']
-  if group_eng_mute == 'no' then
+  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
+  if group_eng_lock == 'no' then
     return 'english is already unlocked!'
   else
     data[tostring(target)]['settings']['lock_eng'] = 'no'
@@ -403,12 +390,12 @@ local function lock_group_eng(msg, data, target)
   end
 end
 
-local function unmute_group_eng(msg, data, target)
+local function unlock_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
   local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
-  if group_eng_mute == 'no' then
+  if group_eng_lock == 'no' then
     return 'english is already unlocked!'
   else
     data[tostring(target)]['settings']['lock_eng'] = 'no'
