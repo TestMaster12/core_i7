@@ -1,40 +1,58 @@
-
-antiarabic = {}-- An empty table for solving multiple kicking problem
-
-do
 local function run(msg, matches)
-  if is_momod(msg) then -- Ignore mods,owner,admins
-    return
-  end
-  local data = load_data(_config.moderation.data)
-  if data[tostring(msg.to.id)]['settings']['lock_farsi'] then
-    if data[tostring(msg.to.id)]['settings']['lock_farsi'] == 'yes' then
-      if antiarabic[msg.from.id] == true then 
+    if is_owner(msg) then
         return
-      end
-      send_large_msg("chat#id".. msg.to.id , "farsi is not allowed here")
-      local name = user_print_name(msg.from)
-      savelog(msg.to.id, name.." ["..msg.from.id.."] kicked (farsi was locked) ")
-      chat_del_user('chat#id'..msg.to.id,'user#id'..msg.from.id,ok_cb,false)
-		  antiarabic[msg.from.id] = true
-      return
     end
-  end
-  return
+    local data = load_data(_config.moderation.data)
+    if data[tostring(msg.to.id)] then
+        if data[tostring(msg.to.id)]['settings'] then
+            if data[tostring(msg.to.id)]['settings']['lock_farsi'] then
+                lock_gif = data[tostring(msg.to.id)]['settings']['lock_farsi']
+            end
+        end
+    end
+    local chat = get_receiver(msg)
+    local user = "user#id"..msg.from.id
+    if lock_gif == "yes" then
+        send_large_msg(chat, 'farsi is not allowed in this chat!')
+		      savelog(msg.to.id," ["..msg.from.id.."] kicked user [farsi was locked] !")-- Save to logs
+        chat_del_user(chat, user, ok_cb, true)
+    end
 end
-local function cron()
-  antiarabic = {} -- Clear antiarabic table 
-end
+ 
 return {
-	usage = {
-		"lock farsi: If Speak Persian, Bot Removed User.",
-		"unlock farsi: Anyone Can Speak Pesrain Or farsi.",
-		},
   patterns = {
-    "([\216-\219][\128-\191])"
-    },
-  run = run,
-	cron = cron
+"ض",
+"ص",
+"ث",
+"ق",
+"ف",
+"غ",
+"ع",
+"ه",
+"خ",
+"ح",
+"ج",
+"چ",
+"پ",
+"ش",
+"س",
+"ی",
+"ب",
+"ل",
+"ا",
+"ت",
+"ن",
+"م",
+"ک",
+"گ",
+"ظ",
+"ط",
+"ز",
+"ر",
+"ذ",
+"د",
+"ئ",
+"و"
+  },
+  run = run
 }
-
-end
