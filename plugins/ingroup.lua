@@ -1487,7 +1487,7 @@ local function run(msg, matches)
           savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked sticker ")
           return lock_group_sticker(msg, data, target)
       end
-      if matches[2] == 'eng' then
+         if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked eng ")
         return lock_group_eng(msg, data, target)
       end
@@ -1557,10 +1557,10 @@ local function run(msg, matches)
       	}
       	return de_safemode
       end
-      if matches[2] == 'eng' then
+          if matches[2] == 'eng' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked eng ")
         return unlock_group_eng(msg, data, target)
-       end
+      end
       if matches[2] == 'sticker' or matches[2] == 's' then
           savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked sticker ")
           return unlock_group_sticker(msg, data, target)
@@ -1639,7 +1639,6 @@ local function run(msg, matches)
       		return ""
       	end
     local safemode ={
-      		mute_group_eng(msg, data, target),
       		mute_group_farsi(msg, data, target),
       		mute_group_chat(msg, data, target),
       	}
@@ -1661,7 +1660,6 @@ local function run(msg, matches)
       		return ""
       	end
       	local de_safemode ={
-      		unmute_group_eng(msg, data, target),
       		unmute_group_farsi(msg, data, target),
       		unmute_group_chat(msg, data, target),
       	}
