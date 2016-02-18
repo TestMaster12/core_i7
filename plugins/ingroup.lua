@@ -211,9 +211,9 @@ local function show_group_settingsmod(msg, data, target)
         lock_join = data[tostring(msg.to.id)]['settings']['lock_join']
         end
 
-          local mute_eng = "no"
-    if data[tostring(msg.to.id)]['settings']['mute_eng'] then
-        mute_eng = data[tostring(msg.to.id)]['settings']['mute_eng']
+          local lock_eng = "no"
+    if data[tostring(msg.to.id)]['settings']['lock_eng'] then
+        lock_eng = data[tostring(msg.to.id)]['settings']['lock_eng']
         end
         
         local mute_farsi = "no"
@@ -257,7 +257,7 @@ local lock_sticker = "ok"
         end
         
          local settings = data[tostring(target)]['settings']
-local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Mute group english 🗣 : "..mute_eng.."\n> Mute group farsi 🗣 : "..mute_farsi.."\n> Mute group chat 🗣 : "..mute_chat.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group emoji 😁 : "..lock_emoji.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group Gif : "..lock_gif.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
+local text = "⚙ Group settings:\n> Lock group name : "..settings.lock_name.."\n> Lock group photo : "..settings.lock_photo.."\n> Lock group tag : "..lock_tag.."\n> Lock group member : "..settings.lock_member.."\n> Lock group english 🗣 : "..lock_eng.."\n> Lock group farsi 🗣 : "..mute_farsi.."\n> Mute group chat 🗣 : "..mute_chat.."\n> Lock group leave : "..lock_leave.."\n> Lock group bad words : "..lock_badw.."\n> Lock group emoji 😁 : "..lock_emoji.."\n> Lock group adds : "..lock_link.."\n> Lock group join : "..lock_join.."\n> Lock group sticker : "..lock_sticker.."\n> Lock group Gif : "..lock_gif.."\n> flood sensitivity : "..NUM_MSG_MAX.."\n> Bot protection : "..bots_protection--"\nPublic: "..public
 return text end
 
 
@@ -389,17 +389,17 @@ local function unmute_group_eng(msg, data, target)
     return 'english has been unmuted!'
   end
 end
-local function mute_group_eng(msg, data, target)
+local function lock_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_mute = data[tostring(target)]['settings']['mute_eng']
-  if group_eng_mute == 'yes' then
-    return 'english is already muted!'
+  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
+  if group_eng_lock == 'yes' then
+    return 'english is already locked!'
   else
-    data[tostring(target)]['settings']['mute_eng'] = 'yes'
+    data[tostring(target)]['settings']['lock_eng'] = 'yes'
     save_data(_config.moderation.data, data)
-    return 'english has been muted!'
+    return 'english has been locked!'
   end
 end
 
@@ -407,13 +407,13 @@ local function unmute_group_eng(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
-  local group_eng_mute = data[tostring(target)]['settings']['mute_eng']
+  local group_eng_lock = data[tostring(target)]['settings']['lock_eng']
   if group_eng_mute == 'no' then
-    return 'english is already unmuted!'
+    return 'english is already unlocked!'
   else
-    data[tostring(target)]['settings']['mute_eng'] = 'no'
+    data[tostring(target)]['settings']['lock_eng'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'english has been unmuted!'
+    return 'english has been unlocked!'
   end
 end
 
@@ -1500,6 +1500,10 @@ local function run(msg, matches)
           savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked sticker ")
           return lock_group_sticker(msg, data, target)
       end
+      if matches[2] == 'eng' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked eng ")
+        return lock_group_eng(msg, data, target)
+      end
       if matches[2] == 'name' or matches[2] == 'n' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked name ")
         return lock_group_namemod(msg, data, target)
@@ -1566,6 +1570,10 @@ local function run(msg, matches)
       	}
       	return de_safemode
       end
+      if matches[2] == 'eng' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked eng ")
+        return unlock_group_eng(msg, data, target)
+       end
       if matches[2] == 'sticker' or matches[2] == 's' then
           savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked sticker ")
           return unlock_group_sticker(msg, data, target)
@@ -1650,10 +1658,6 @@ local function run(msg, matches)
       	}
       	return safemode
       end
-   if matches[2] == 'eng' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] muted eng ")
-        return mute_group_eng(msg, data, target)
-      end
       if matches[2] == 'farsi' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] muted farsi ")
         return mute_group_farsi(msg, data, target)
@@ -1676,10 +1680,6 @@ local function run(msg, matches)
       	}
       	return de_safemode
       end
-    if matches[2] == 'eng' then
-        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute eng ")
-        return unmute_group_eng(msg, data, target)
-       end
        if matches[2] == 'farsi' then
         savelog(msg.to.id, name_log.." ["..msg.from.id.."] unmute farsi ")
         return unmute_group_farsi(msg, data, target)
