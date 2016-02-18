@@ -241,7 +241,7 @@ local function run(msg, matches)
 	 text = text..'Group name : '..msg.to.title..'\n'
      text = text..'Group ID : '..msg.to.id
     end
-	text = text..'\niDetergent'
+	text = text..'\nS.H.I.E.L.D.'
     return send_msg(receiver, text, ok_cb, true)
     end
   end
