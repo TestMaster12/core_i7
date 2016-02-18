@@ -21,7 +21,7 @@ end
  
 return {
   patterns = {
-    "gif",
+     "(.+)"
   },
   run = run
 }
