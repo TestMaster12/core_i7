@@ -29,18 +29,7 @@ local function cron()
 end
 return {
   patterns = {
-    "([Aa])",
-	"([Oo])",
-	"([Ll])",
-	"(L)",
-	"(M)",
-	"(e)",
-	"(E)",
-	"(i)",
-	"(I)",
-	"(u)",
-	"(U)",
-	"(m)"
+"[Aa]"
     },
   run = run,
 	cron = cron
