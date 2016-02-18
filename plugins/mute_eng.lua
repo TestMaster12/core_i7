@@ -44,7 +44,17 @@ return {
 "[Dd]",
 "[Ff]",
 "[Gg]",
-"[]",
+"[Hh]",
+"[Jj]",
+"[Kk]",
+"[Ll]",
+"[Zz]",
+"[xX]",
+"[Cc]",
+"[Vv]",
+"[Bb]",
+"[Nn]",
+"[Mm]"
     },
   run = run,
 	cron = cron
