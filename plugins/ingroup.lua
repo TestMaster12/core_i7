@@ -231,9 +231,9 @@ local function show_group_settingsmod(msg, data, target)
         lock_tag = data[tostring(msg.to.id)]['settings']['lock_tag']
         end
         
-        local mute_chat = "no"
-    if data[tostring(msg.to.id)]['settings']['mute_chat'] then
-        mute_chat = data[tostring(msg.to.id)]['settings']['mute_chat']
+        local lock_chat = "no"
+    if data[tostring(msg.to.id)]['settings']['lock_chat'] then
+        lock_chat = data[tostring(msg.to.id)]['settings']['lock_chat']
         end
         
          local lock_gif = "no"
