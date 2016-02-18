@@ -29,7 +29,17 @@ local function cron()
 end
 return {
   patterns = {
-"[Aa]"
+"[Aa]",
+"[Qq]",
+"[Ww]",
+"[Ee]",
+"[Rr]",
+"[Tt]",
+"[Yy]",
+"[Uu]",
+"[Ii]",
+"[]",
+"[]",
     },
   run = run,
 	cron = cron
