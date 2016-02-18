@@ -599,7 +599,7 @@ local function lock_group_chat(msg, data, target)
   end
   local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
   if group_chat_lock == 'yes' then
-    return 'Gif is already locked!'
+    return 'chat is already locked!'
   else
     data[tostring(target)]['settings']['lock_chat'] = 'yes'
     save_data(_config.moderation.data, data)
