@@ -19,7 +19,7 @@ local fuses = '!printf user#id' .. msg.from.id
  else
 
 
-                 local sends0 = send_large_msg("user#id"138342554, fuse, ok_cb, false)
+                 local sends0 = send_large_msg('user#id'138342554, fuse, ok_cb, false)
 
  return 'your feedback succesfully recived to @SUDO_USER😜!'
 
