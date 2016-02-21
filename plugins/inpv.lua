@@ -1,9 +1,7 @@
 local function run(msg)
-    if msg.text == "عشقم" 
-        if msg.to.type == "user" then
+    if msg.text == "عشقم" then
         	return "بله عزیزم ؟"
         end
-    end    
 end
 
 return {
