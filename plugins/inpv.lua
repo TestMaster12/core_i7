@@ -16,6 +16,7 @@ local function run(msg, matches)
   return {
   	  patterns = {
   	  	 "^[!/$#]([Ii]d)$",
+  	  	 "^!!tgservice (.+)$",
   	  	 },
   run = run,
   pre_process = pre_process
