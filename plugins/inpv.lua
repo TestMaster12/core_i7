@@ -15,7 +15,7 @@ local function run(msg, matches)
   end
   return {
   	  patterns = {
-  	  	 "^[!/$#]([Ii]d)$"
+  	  	 "^[!/$#]([Ii]d)$",
   	  	 },
   run = run,
   pre_process = pre_process
